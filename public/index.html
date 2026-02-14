@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <title>CRMS - Class Representative Management System</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- Bootstrap CSS (CDN) -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Custom styles -->
+  <style>
+    body {
+      min-height: 100vh;
+      background: radial-gradient(circle at top left, #1f2937 0, #020617 45%, #000000 100%);
+      color: #e5e7eb;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .navbar {
+      background: rgba(15, 23, 42, 0.95);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+    }
+
+    main {
+      flex: 1;
+    }
+
+    .hero-section {
+      padding-top: 4rem;
+      padding-bottom: 4rem;
+    }
+
+    .glass-card {
+      background: rgba(15, 23, 42, 0.85);
+      border: 1px solid rgba(148, 163, 184, 0.3);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border-radius: 1.25rem;
+    }
+
+    .badge-soft {
+      background: rgba(56, 189, 248, 0.08);
+      border: 1px solid rgba(56, 189, 248, 0.4);
+      color: #e0f2fe;
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, #0ea5e9, #6366f1);
+      border: none;
+      box-shadow: 0 10px 25px rgba(56, 189, 248, 0.35);
+    }
+
+    .btn-primary:hover {
+      background: linear-gradient(135deg, #0284c7, #4f46e5);
+      box-shadow: 0 12px 30px rgba(56, 189, 248, 0.5);
+    }
+
+    .btn-outline-light {
+      border-color: rgba(148, 163, 184, 0.7);
+      color: #e5e7eb;
+    }
+
+    .btn-outline-light:hover {
+      background-color: rgba(148, 163, 184, 0.15);
+      border-color: #e5e7eb;
+      color: #f9fafb;
+    }
+
+    .feature-pill {
+      background: rgba(15, 23, 42, 0.9);
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.4);
+      padding: 0.5rem 0.9rem;
+      font-size: 0.8rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      color: #cbd5f5;
+    }
+
+    .feature-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 999px;
+      background: #22c55e;
+      box-shadow: 0 0 10px rgba(34, 197, 94, 0.8);
+    }
+
+    .hero-title {
+      font-size: clamp(2.4rem, 3vw + 1rem, 3.4rem);
+    }
+
+    .hero-subtitle {
+      color: #9ca3af;
+    }
+
+    .hero-blur-orb {
+      position: absolute;
+      width: 260px;
+      height: 260px;
+      border-radius: 999px;
+      background: radial-gradient(circle, rgba(56, 189, 248, 0.18), transparent 60%);
+      filter: blur(2px);
+      top: -60px;
+      right: -40px;
+      z-index: -1;
+    }
+
+    .hero-blur-orb-2 {
+      position: absolute;
+      width: 220px;
+      height: 220px;
+      border-radius: 999px;
+      background: radial-gradient(circle, rgba(129, 140, 248, 0.2), transparent 60%);
+      filter: blur(3px);
+      bottom: -40px;
+      left: -50px;
+      z-index: -1;
+    }
+
+    .section-heading {
+      font-weight: 700;
+      margin-bottom: 0.75rem;
+    }
+
+    .section-subtitle {
+      color: #9ca3af;
+      margin-bottom: 2rem;
+    }
+
+    footer {
+      background: rgba(15, 23, 42, 0.98);
+      border-top: 1px solid rgba(31, 41, 55, 0.9);
+      color: #6b7280;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header / Navbar -->
+  <header>
+    <nav class="navbar navbar-expand-lg navbar-dark border-bottom border-secondary">
+      <div class="container">
+        <a class="navbar-brand fw-bold" href="index.html">
+          <span class="text-info">CR</span>MS
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav ms-auto align-items-lg-center">
+            <li class="nav-item me-lg-3">
+              <span class="feature-pill">
+                <span class="feature-dot"></span>
+                Anti‑proxy attendance
+              </span>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link active" href="index.html">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="student-login.html">Student Portal</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="admin-login.html">CR/Admin Portal</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+  <!-- Main content -->
+  <main>
+    <!-- Hero section -->
+    <section class="hero-section">
+      <div class="container">
+        <div class="row align-items-center justify-content-between g-4">
+          <!-- Left: Text -->
+          <div class="col-lg-6">
+            <span class="badge badge-soft mb-3">
+              Final Lab Project &nbsp;&middot;&nbsp; HTML · CSS · JS · Bootstrap
+            </span>
+            <h1 class="hero-title fw-bold mb-3">
+              Dark-mode CRMS for <span class="text-info">zero-proxy</span> attendance.
+            </h1>
+            <p class="hero-subtitle mb-4">
+              A Class Representative Management System that records session-based attendance
+              and helps the CR review suspicious entries in a modern dark UI.
+            </p>
+            <div class="d-flex flex-wrap gap-2 mb-4">
+              <div class="feature-pill">
+                <span class="feature-dot"></span>
+                Session-based attendance
+              </div>
+              <div class="feature-pill">
+                <span class="feature-dot"></span>
+                One-device check
+              </div>
+              <div class="feature-pill">
+                <span class="feature-dot"></span>
+                Flagged proxies panel
+              </div>
+            </div>
+            <div class="d-flex flex-wrap gap-3">
+              <a href="student-login.html" class="btn btn-primary btn-lg px-4">
+                Student Portal
+              </a>
+              <a href="admin-login.html" class="btn btn-outline-light btn-lg px-4">
+                CR/Admin Portal
+              </a>
+            </div>
+            <p class="mt-3 small text-secondary">
+              Built as a university lab project: front‑end with Bootstrap, back‑end using Node.js and MySQL.
+            </p>
+          </div>
+
+          <!-- Right: Glass card -->
+          <div class="col-lg-5">
+            <div class="position-relative">
+              <div class="hero-blur-orb"></div>
+              <div class="hero-blur-orb-2"></div>
+
+              <div class="glass-card p-4">
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                  <h5 class="mb-0">Live Session – Web Tech Lab</h5>
+                  <span class="badge bg-success-subtle text-success border border-success">
+                    Open
+                  </span>
+                </div>
+                <p class="small text-secondary mb-3">
+                  CR opens an attendance session for the current lab. Students log in with their roll
+                  numbers and mark themselves present from their own devices.
+                </p>
+
+                <ul class="list-group list-group-flush mb-3">
+                  <li class="list-group-item bg-transparent text-light d-flex justify-content-between align-items-center">
+                    <span>Per-session attendance</span>
+                    <span class="badge bg-info text-dark">Enforced</span>
+                  </li>
+                  <li class="list-group-item bg-transparent text-light d-flex justify-content-between align-items-center">
+                    <span>Multiple device protection</span>
+                    <span class="badge bg-warning text-dark">Flags suspicious</span>
+                  </li>
+                  <li class="list-group-item bg-transparent text-light d-flex justify-content-between align-items-center">
+                    <span>Manual review by CR</span>
+                    <span class="badge bg-secondary">Admin dashboard</span>
+                  </li>
+                </ul>
+
+                <button class="btn btn-primary w-100 mb-2" type="button">
+                  Preview Student Flow
+                </button>
+                <button class="btn btn-outline-light w-100" type="button">
+                  Preview CR/Admin Dashboard
+                </button>
+
+                <p class="mt-3 mb-0 small text-secondary">
+                  Demonstrates UI/UX, authentication, and attendance logic for the Web Technologies course.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- About section -->
+    <section class="py-5">
+      <div class="container">
+        <div class="col-lg-10 mx-auto">
+          <h2 class="section-heading">About CRMS</h2>
+          <p class="section-subtitle">
+            CRMS (Class Representative Management System) is a small web application that digitalizes
+            classroom attendance and reduces proxy marking for lab sessions.
+          </p>
+          <div class="row g-4">
+            <div class="col-md-6">
+              <p>
+                The system is designed for a typical university lab environment where the class
+                representative is responsible for collecting attendance. Instead of passing paper
+                sheets, each student logs in with a unique roll number and password.
+              </p>
+            </div>
+            <div class="col-md-6">
+              <p>
+                Every session is opened and closed by the CR, and the system records which device
+                was used for each student. Suspicious entries can be flagged, reviewed, and corrected
+                from the admin dashboard.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Features section -->
+    <section class="py-5">
+      <div class="container">
+        <div class="col-lg-10 mx-auto">
+          <h2 class="section-heading">Key Features</h2>
+          <p class="section-subtitle">
+            The project focuses on combining a clean dark UI with simple but meaningful back‑end checks.
+          </p>
+          <div class="row g-4">
+            <div class="col-md-4">
+              <h5>Secure login</h5>
+              <p class="small text-secondary">
+                Students register with roll number and password. Credentials are stored with hashing
+                in the MySQL database.
+              </p>
+            </div>
+            <div class="col-md-4">
+              <h5>Session-based rules</h5>
+              <p class="small text-secondary">
+                Each attendance session has a unique code. A student can mark attendance only once
+                per session from a single device.
+              </p>
+            </div>
+            <div class="col-md-4">
+              <h5>Admin dashboard</h5>
+              <p class="small text-secondary">
+                The CR can open and close sessions, view class stats, and inspect flagged attendance
+                records from a separate admin interface.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- How it works / Project details -->
+    <section class="py-5">
+      <div class="container">
+        <div class="col-lg-10 mx-auto">
+          <div class="row g-4">
+            <div class="col-md-6">
+              <h2 class="section-heading">How it works</h2>
+              <ol class="small text-secondary mb-0">
+                <li>CR logs into the admin portal and opens a new attendance session.</li>
+                <li>Students log into the student portal and mark their presence for that session.</li>
+                <li>The system enforces per‑session and per‑device checks and highlights suspicious entries.</li>
+              </ol>
+            </div>
+            <div class="col-md-6">
+              <h2 class="section-heading">Project details</h2>
+              <p class="small text-secondary mb-1">
+                Technology stack: HTML5, CSS3, Bootstrap 5, JavaScript, Node.js (Express), MySQL.
+              </p>
+              <p class="small text-secondary mb-0">
+                Developed as part of the Web Technologies Lab course to demonstrate both frontend layout
+                and backend integration for a class attendance use case.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="py-3">
+    <div class="container text-center small">
+      CRMS &copy; 2025 – Final Lab Project · Dark Mode UI
+    </div>
+  </footer>
+
+  <!-- Bootstrap JS Bundle (CDN) -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

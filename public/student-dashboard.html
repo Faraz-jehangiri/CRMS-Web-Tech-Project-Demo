@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <title>CRMS - Student Dashboard</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- Bootstrap CSS (CDN) -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <style>
+    body {
+      min-height: 100vh;
+      background: radial-gradient(circle at top left, #1f2937 0, #020617 45%, #000000 100%);
+      color: #e5e7eb;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .navbar {
+      background: rgba(15, 23, 42, 0.95);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+    }
+
+    .dashboard-wrapper {
+      flex: 1;
+      padding: 2rem 1rem 2.5rem;
+    }
+
+    .glass-card {
+      background: rgba(15, 23, 42, 0.9);
+      border: 1px solid rgba(148, 163, 184, 0.35);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border-radius: 1.25rem;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, #0ea5e9, #6366f1);
+      border: none;
+      box-shadow: 0 10px 25px rgba(56, 189, 248, 0.35);
+    }
+
+    .btn-primary:hover {
+      background: linear-gradient(135deg, #0284c7, #4f46e5);
+      box-shadow: 0 12px 30px rgba(56, 189, 248, 0.5);
+    }
+
+    .badge-soft {
+      background: rgba(56, 189, 248, 0.08);
+      border: 1px solid rgba(56, 189, 248, 0.4);
+      color: #e0f2fe;
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    .hero-blur-orb {
+      position: absolute;
+      width: 220px;
+      height: 220px;
+      border-radius: 999px;
+      background: radial-gradient(circle, rgba(56, 189, 248, 0.18), transparent 60%);
+      filter: blur(2px);
+      top: -40px;
+      right: -30px;
+      z-index: -1;
+    }
+
+    .hero-blur-orb-2 {
+      position: absolute;
+      width: 200px;
+      height: 200px;
+      border-radius: 999px;
+      background: radial-gradient(circle, rgba(129, 140, 248, 0.2), transparent 60%);
+      filter: blur(3px);
+      bottom: -30px;
+      left: -40px;
+      z-index: -1;
+    }
+
+    .table thead th {
+      border-color: rgba(55, 65, 81, 0.9);
+    }
+
+    .table tbody tr {
+      border-color: rgba(31, 41, 55, 0.8);
+    }
+
+    .table-dark-custom {
+      background-color: rgba(15, 23, 42, 0.95);
+      color: #e5e7eb;
+    }
+
+    .status-badge-present {
+      background-color: rgba(34, 197, 94, 0.1);
+      color: #bbf7d0;
+      border: 1px solid rgba(34, 197, 94, 0.6);
+    }
+
+    .status-badge-absent {
+      background-color: rgba(248, 113, 113, 0.1);
+      color: #fecaca;
+      border: 1px solid rgba(248, 113, 113, 0.6);
+    }
+
+    .status-badge-flagged {
+      background-color: rgba(250, 204, 21, 0.08);
+      color: #facc15;
+      border: 1px solid rgba(250, 204, 21, 0.6);
+    }
+
+    footer {
+      background: rgba(15, 23, 42, 0.98);
+      border-top: 1px solid rgba(31, 41, 55, 0.9);
+      color: #6b7280;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-dark border-bottom border-secondary">
+    <div class="container">
+      <a class="navbar-brand fw-bold" href="index.html">
+        <span class="text-info">CR</span>MS
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto align-items-lg-center">
+          <li class="nav-item">
+            <a class="nav-link" href="index.html">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active" href="student-login.html">Student Portal</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="admin-login.html">CR/Admin Portal</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Dashboard -->
+  <div class="dashboard-wrapper">
+    <div class="container">
+      <div class="row g-4">
+
+        <!-- Left: Welcome + Mark Attendance -->
+        <div class="col-lg-5">
+          <div class="position-relative mb-4 mb-lg-0">
+            <div class="hero-blur-orb"></div>
+            <div class="hero-blur-orb-2"></div>
+
+            <div class="glass-card p-4">
+              <div class="d-flex justify-content-between align-items-center mb-2">
+                <div>
+                  <h4 class="mb-1" id="welcomeTitle">Welcome, Student</h4>
+                  <p class="text-secondary mb-0 small">
+                    Use this panel to mark your attendance for the current session.
+                  </p>
+                </div>
+                <span class="badge badge-soft">Student Dashboard</span>
+              </div>
+
+              <hr class="border-secondary border-opacity-50">
+
+              <div class="mb-3">
+                <div class="d-flex justify-content-between align-items-center mb-1">
+                  <span class="small text-secondary">Current Session</span>
+                  <span id="sessionStatusBadge" class="badge rounded-pill bg-secondary border border-secondary">
+                    Checking...
+                  </span>
+                </div>
+                <h5 class="mb-1" id="sessionTitle">No active session</h5>
+                <p class="small text-secondary mb-0" id="sessionSubtitle">
+                  Waiting for CR to open a session.
+                </p>
+              </div>
+
+              <div class="mb-3 p-3 rounded border border-secondary border-opacity-50 bg-black bg-opacity-25">
+                <p class="small text-secondary mb-1">
+                  Location check
+                </p>
+                <p id="locationInfo" class="mb-0 small">
+                  Attempting to get your device location...
+                </p>
+              </div>
+
+              <div class="mb-3">
+                <button id="markAttendanceBtn" class="btn btn-primary w-100 mb-2" disabled>
+                  Mark Present for this class
+                </button>
+                <p id="attendanceMessage" class="small text-secondary mb-0">
+                  No active session yet.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right: Attendance History Table -->
+        <div class="col-lg-7">
+          <div class="glass-card p-4">
+            <div class="d-flex justify-content-between align-items-center mb-3">
+              <div>
+                <h5 class="mb-1">Your Attendance History</h5>
+                <p class="small text-secondary mb-0">
+                  Latest attendance records stored for your roll number.
+                </p>
+              </div>
+              <span class="badge badge-soft">History</span>
+            </div>
+
+            <div class="table-responsive">
+              <table class="table table-dark-custom table-hover align-middle mb-0">
+                <thead>
+                  <tr>
+                    <th scope="col">Date/Time</th>
+                    <th scope="col">Course</th>
+                    <th scope="col">Session</th>
+                    <th scope="col">Status</th>
+                    <th scope="col">Device</th>
+                  </tr>
+                </thead>
+                <tbody id="attendanceTableBody">
+                  <!-- Filled from backend -->
+                </tbody>
+              </table>
+            </div>
+
+            <div class="mt-3 small text-secondary">
+              History shows your most recent marks, fetched from the attendance records for your roll.
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="py-3">
+    <div class="container text-center small">
+      CRMS &copy; 2025 – Student Dashboard
+    </div>
+  </footer>
+
+  <!-- Bootstrap JS Bundle (CDN) -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+  <script>
+    const API_BASE = 'http://localhost:5000';
+
+    const markBtn = document.getElementById('markAttendanceBtn');
+    const messageEl = document.getElementById('attendanceMessage');
+    const tableBody = document.getElementById('attendanceTableBody');
+    const sessionStatusBadge = document.getElementById('sessionStatusBadge');
+    const sessionTitle = document.getElementById('sessionTitle');
+    const sessionSubtitle = document.getElementById('sessionSubtitle');
+    const locationInfo = document.getElementById('locationInfo');
+    const welcomeTitle = document.getElementById('welcomeTitle');
+
+    let currentSession = null;
+    let deviceId = null;
+    let currentLat = null;
+    let currentLng = null;
+
+    // Get roll number & token from login
+    const studentRoll = localStorage.getItem('crmsRollNo');
+    const authToken = localStorage.getItem('crmsToken');
+
+    if (studentRoll) {
+      welcomeTitle.textContent = 'Welcome, ' + studentRoll;
+    } else {
+      welcomeTitle.textContent = 'Welcome, Student';
+    }
+
+    // Generate / get persistent deviceId for this browser [web:57]
+    function getDeviceId() {
+      let id = localStorage.getItem('crmsDeviceId');
+      if (!id) {
+        if (crypto.randomUUID) {
+          id = crypto.randomUUID();
+        } else {
+          id = 'dev-' + Math.random().toString(36).substr(2, 12);
+        }
+        localStorage.setItem('crmsDeviceId', id);
+      }
+      return id;
+    }
+
+    deviceId = getDeviceId();
+
+    // Geolocation [web:52][web:53][web:58]
+    function initGeolocation() {
+      if (!('geolocation' in navigator)) {
+        locationInfo.textContent = 'Geolocation not supported by this browser.';
+        return;
+      }
+
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          currentLat = position.coords.latitude;
+          currentLng = position.coords.longitude;
+          locationInfo.innerHTML =
+            '<span class="badge rounded-pill bg-info text-dark me-1">Location OK</span>' +
+            'Lat: ' + currentLat.toFixed(5) + ', Lng: ' + currentLng.toFixed(5);
+        },
+        (error) => {
+          console.error('Geolocation error', error);
+          locationInfo.textContent =
+            'Could not get precise location (permission denied or unavailable). Attendance will still be sent without GPS.';
+        }
+      );
+    }
+
+    // Load active session
+    async function fetchActiveSession() {
+      sessionStatusBadge.textContent = 'Checking...';
+      sessionStatusBadge.className = 'badge rounded-pill bg-secondary border border-secondary';
+
+      try {
+        const res = await fetch(API_BASE + '/api/active-sessions');
+        const data = await res.json();
+
+        if (!Array.isArray(data) || data.length === 0) {
+          currentSession = null;
+          sessionTitle.textContent = 'No active session';
+          sessionSubtitle.textContent = 'Waiting for CR to open a session.';
+          sessionStatusBadge.textContent = 'Closed';
+          sessionStatusBadge.className = 'badge rounded-pill bg-secondary border border-secondary';
+          markBtn.disabled = true;
+          messageEl.textContent = 'No active session available. Check again when CR starts one.';
+          return;
+        }
+
+        // For now, use the first active session
+        currentSession = data[0];
+
+        sessionTitle.textContent = currentSession.course + ' – Active Session';
+        sessionSubtitle.textContent = 'Session code: ' + currentSession.session_code;
+        sessionStatusBadge.textContent = 'Open';
+        sessionStatusBadge.className = 'badge rounded-pill bg-success-subtle text-success border border-success';
+
+        markBtn.disabled = false;
+        messageEl.textContent = 'You have not marked attendance for this session yet.';
+      } catch (err) {
+        console.error('Failed to load active session', err);
+        currentSession = null;
+        sessionTitle.textContent = 'Error loading session';
+        sessionSubtitle.textContent = 'Please try refreshing the page.';
+        sessionStatusBadge.textContent = 'Error';
+        sessionStatusBadge.className = 'badge rounded-pill bg-danger border border-danger';
+        markBtn.disabled = true;
+        messageEl.textContent = 'Could not check active session. Try again later.';
+      }
+    }
+
+    // Mark attendance -> /api/mark-attendance
+    markBtn.addEventListener('click', async function () {
+      if (!currentSession) {
+        messageEl.textContent = 'No active session to mark. Wait for CR to open a session.';
+        return;
+      }
+
+      if (!studentRoll) {
+        alert('Missing roll number in localStorage. Please log in again.');
+        window.location.href = 'student-login.html';
+        return;
+      }
+
+      markBtn.disabled = true;
+      messageEl.textContent = 'Submitting your attendance...';
+
+      const payload = {
+        sessionCode: currentSession.session_code,
+        studentRollNo: studentRoll,
+        deviceId: deviceId,
+        latitude: currentLat,
+        longitude: currentLng
+      };
+
+      try {
+        const res = await fetch(API_BASE + '/api/mark-attendance', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            // Optionally send token if you later secure with auth middleware
+            Authorization: authToken ? 'Bearer ' + authToken : undefined
+          },
+          body: JSON.stringify(payload)
+        });
+
+        const data = await res.json();
+
+        if (!res.ok) {
+          messageEl.textContent = data.message || 'Failed to mark attendance.';
+          markBtn.disabled = false;
+          return;
+        }
+
+        messageEl.textContent = data.message || 'Attendance marked successfully!';
+        await loadAttendanceHistory(); // refresh table after mark
+      } catch (err) {
+        console.error('Mark attendance error:', err);
+        messageEl.textContent = 'Server error while marking attendance.';
+        markBtn.disabled = false;
+      }
+    });
+
+    // Attendance history for this student: simple version using recent-activity [web:27]
+    async function loadAttendanceHistory() {
+      if (!studentRoll) return;
+
+      try {
+        const res = await fetch(API_BASE + '/api/recent-activity');
+        if (!res.ok) return;
+        const list = await res.json();
+
+        tableBody.innerHTML = '';
+
+        // Filter by this student's roll number
+        const mine = list.filter(rec => rec.student_roll_no === studentRoll);
+
+        if (mine.length === 0) {
+          const tr = document.createElement('tr');
+          tr.innerHTML = `
+            <td colspan="5" class="small text-secondary text-center">
+              No attendance records found yet for your roll number.
+            </td>
+          `;
+          tableBody.appendChild(tr);
+          return;
+        }
+
+        mine.forEach(rec => {
+          const dt = new Date(rec.timestamp);
+          const tr = document.createElement('tr');
+          tr.innerHTML = `
+            <td>${dt.toLocaleString()}</td>
+            <td>${rec.course}</td>
+            <td>${rec.session_code || ''}</td>
+            <td>
+              <span class="badge rounded-pill status-badge-present">Present</span>
+            </td>
+            <td class="small text-secondary">${rec.device_id}</td>
+          `;
+          tableBody.appendChild(tr);
+        });
+      } catch (err) {
+        console.error('Failed to load attendance history', err);
+      }
+    }
+
+    (async function init() {
+      if (!studentRoll) {
+        alert('You are not logged in. Redirecting to login page.');
+        window.location.href = 'student-login.html';
+        return;
+      }
+
+      initGeolocation();
+      await fetchActiveSession();
+      await loadAttendanceHistory();
+    })();
+  </script>
+
+</body>
+</html>
