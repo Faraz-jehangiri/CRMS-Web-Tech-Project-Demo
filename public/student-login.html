@@ -217,7 +217,7 @@
       }
 
       try {
-        const response = await fetch('http://localhost:5000/login', {
+        const response = await fetch('/login', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json'
@@ -237,10 +237,8 @@
           return;
         }
 
-        // Hide alert if any, store basic info if needed
         alertBox.classList.add('d-none');
 
-        // Optionally store token / user in localStorage
         if (data.token) {
           localStorage.setItem('crmsToken', data.token);
         }
@@ -248,7 +246,6 @@
           localStorage.setItem('crmsRollNo', data.user.username);
         }
 
-        // Redirect to student dashboard
         window.location.href = 'student-dashboard.html';
       } catch (err) {
         console.error(err);

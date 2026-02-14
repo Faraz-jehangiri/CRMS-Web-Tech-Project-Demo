@@ -224,7 +224,6 @@
         return;
       }
 
-      // PASSWORD RULE: 8–16 chars, letters and digits only, at least one capital letter
       const passwordRegex = /^(?=.*[A-Z])[A-Za-z0-9]{8,16}$/;
       if (!passwordRegex.test(password)) {
         showError('Password must be 8–16 characters, only letters and digits, with at least one capital letter.');
@@ -239,7 +238,7 @@
       };
 
       try {
-        const res = await fetch('http://localhost:5000/register', {
+        const res = await fetch('/register', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json'
