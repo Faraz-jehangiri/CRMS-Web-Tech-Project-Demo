@@ -14,20 +14,36 @@ app.use(express.static('public'));
 // Hardcoded CR/Admin demo account
 const demoAdmin = {
   id: 1,
-  roll_number: '2023F-BCS-096', // matches your placeholder style
+  roll_number: '2023F-BCS-096', // CR roll number
   full_name: 'Demo CR Admin',
-  password: 'hellocr',          // easy CR demo password
+  password: 'hellocr',
   role: 'cr'
 };
 
-// Demo students (start with one, teacher can also register new ones)
+// Demo students (initial)
 let demoStudents = [
   {
     id: 1,
     roll_number: 'STUDENT123',
     full_name: 'Demo Student',
     age: 20,
-    password: 'Student123', // fits your password rule (capital + letters/digits)
+    password: 'Student123',
+    role: 'student'
+  },
+  {
+    id: 2,
+    roll_number: '2023F-BCS-001',
+    full_name: 'Ali Ahmed',
+    age: 21,
+    password: 'AliAhmed1',
+    role: 'student'
+  },
+  {
+    id: 3,
+    roll_number: '2023F-BCS-002',
+    full_name: 'Sara Khan',
+    age: 20,
+    password: 'SaraKhan1',
     role: 'student'
   }
 ];
@@ -35,8 +51,8 @@ let demoStudents = [
 // Demo dashboard/session data
 let demoDashboardStats = {
   sessionId: 1,
-  presentCount: 15,
-  absentCount: 5,
+  presentCount: 3,
+  absentCount: 7,
   flaggedCount: 2
 };
 
@@ -70,7 +86,6 @@ let demoRecentActivity = [
 // ==================== AUTH (DEMO) ====================
 
 // STUDENT REGISTRATION (DEMO)
-// Frontend sends: { rollNo, fullName, password, role: 'student' }
 app.post('/register', (req, res) => {
   const { rollNo, fullName, password, role = 'student' } = req.body;
 
@@ -78,7 +93,6 @@ app.post('/register', (req, res) => {
     return res.status(400).json({ message: 'Missing required fields' });
   }
 
-  // Simple duplicate check
   const existing = demoStudents.find((s) => s.roll_number === rollNo);
   if (existing) {
     return res
@@ -103,8 +117,6 @@ app.post('/register', (req, res) => {
 });
 
 // LOGIN (DEMO)
-// Student page sends: role: 'student'
-// Admin page sends:   role: 'cr'
 app.post('/login', (req, res) => {
   const { username, password, role } = req.body;
 
@@ -168,6 +180,7 @@ app.post('/login', (req, res) => {
 
 // ==================== ATTENDANCE SESSION (DEMO) ====================
 
+// CREATE SESSION (just returns demo values)
 app.post('/api/create-session', (req, res) => {
   const { course, duration, createdBy } = req.body;
 
@@ -178,9 +191,9 @@ app.post('/api/create-session', (req, res) => {
 
   demoDashboardStats = {
     sessionId: 1,
-    presentCount: 10,
-    absentCount: 10,
-    flaggedCount: 1
+    presentCount: 3,
+    absentCount: 7,
+    flaggedCount: 2
   };
 
   res.json({
@@ -192,6 +205,7 @@ app.post('/api/create-session', (req, res) => {
   });
 });
 
+// ALWAYS RETURN ONE ACTIVE SESSION
 app.get('/api/active-sessions', (req, res) => {
   res.json([
     {
@@ -207,6 +221,7 @@ app.get('/api/active-sessions', (req, res) => {
   ]);
 });
 
+// END SESSION (DEMO)
 app.post('/api/end-session/:sessionId', (req, res) => {
   res.json({ message: 'Demo session ended successfully!' });
 });
